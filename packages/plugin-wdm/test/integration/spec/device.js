@@ -15,6 +15,18 @@ describe(`plugin-wdm`, function() {
 
     let spark;
 
+    [
+      `CISCOSPARK_APPID_SECRET`,
+      `CISCOSPARK_CLIENT_SECRET`,
+      `COMMON_IDENTITY_CLIENT_SECRET`,
+      `CISCOSPARK_CLIENT_ID`,
+      `COMMON_IDENTITY_CLIENT_ID`
+    ].forEach((key) => {
+      beforeEach(key, () => {
+        assert.isDefined(process.env[key]);
+      });
+    });
+
     beforeEach(() => testUsers.create({count: 1})
       .then((users) => {
         spark = new CiscoSpark({
